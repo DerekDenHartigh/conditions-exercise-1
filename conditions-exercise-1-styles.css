@@ -1,0 +1,27 @@
+#thermostat-container{
+    position: relative;
+}
+#temp-readout{
+    position: absolute;
+    background-color: #007FF4;
+    color: #002145;
+    width: 140px;
+    height: 65px;
+    font-size: 1.5em;
+    margin: 0;
+    top: 115px;
+    left: 110px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#thermostat-button{
+    position: absolute;
+    top: 205px;
+    left: 150px;
+    border-radius: 5px;
+}
+#thermostat-jpg{
+    position: absolute;
+}
