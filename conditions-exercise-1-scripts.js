@@ -4,10 +4,6 @@ Skills: Conditions
 Heating/Cooling exercise:
 Define two variables: actualTemp and a desiredTemp. Write conditionals to tell the heating &
 cooling system what to do. Log one of these three things: Run A/C, Run heat, or Standby.
-Extended Challenges second exercise:
-Start with two variables: tempCelsius (a number) and targetUnit (a string, either “C”, “F”, or “K”).
-Write a switch statement that checks the targetUnit and logs the temperature converted to
-that unit. Notes: K stands for Kelvin. C requires no conversion, print out the original temp
 */
 
 
@@ -119,6 +115,50 @@ Write a switch statement that checks the targetUnit and logs the temperature con
 that unit. Notes: K stands for Kelvin. C requires no conversion, print out the original temp
 */
 
+let unconvertedTemp = prompt("what temperature is it? number only plz, the unit comes next.")
+let tempUnit = prompt("what unit was that? (Kelvin/K, Celcius/C, Fahrenheit/F?)")
+let targetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") // looked into multiple choice - looks like you need to use Jquery for that
+/*
+Unit conversion equations:
+F->C:   C=((F-32)*(5/9))
+F->K:   K=(((F-32)*5/9)-273.15)
+C->F:   F=((9/5)*C)+32)
+C->K:   K=(C-273.15)
+K->C:   C=(K+273.15)
+K->F:   F=((9/5)*(K+273.15))+32)
+*/
+function temperatureConversion() {
+switch () {
+    case unconvertedTemp===("" || undefined):
+        console.log("you forgot to enter the temperature"); break;
+    case (
+        ((tempUnit===("Celcius"||"celcius"||"C"||"c")) && (unconvertedTemp< (-273.15))) ||
+        ((tempUnit===("Kelvin"||"kelvin"||"K"||"k")) && (unconvertedTemp<0)) ||
+        ((tempUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (unconvertedTemp< (-459.67)))):
+        console.log(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+
+    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+        console.log(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`); break;
+
+    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
+        let convertedTemp = ((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp}°F`); break;
+
+    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+        let convertedTemp = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp}°K`); break;
+
+    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
+        let convertedTemp = ((9/5)*(unconvertedTemp+273.15))+32); console.log(`converted temp: ${convertedTemp}°F`); break;
+
+    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+        let convertedTemp = (unconvertedTemp+273.15); console.log(`converted temp: ${convertedTemp}°C`); break;
+
+    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+        let convertedTemp = (((unconvertedTemp-32)*5/9)-273.15); console.log(`converted temp: ${convertedTemp}°K`); break;
+        
+    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+        let convertedTemp = ((unconvertedTemp-32)*(5/9)); console.log(`converted temp: ${convertedTemp}°C`); break;
+  }
+}
 /* example while loop
 let a=0, j=0;
 while (a<30) {
