@@ -70,23 +70,30 @@ if (actualTemp===desiredTemp)
 // lets try this one more time with feeling:
 
 function thermostatFunction() {
-    let actualTemp=prompt("What is the current temperature?")
-    let desiredTemp=prompt("What temperature do you want it to be?")
+    let actualTemp=prompt("What is the current temperature?");
+    let desiredTemp=prompt("What temperature do you want it to be?");
+    let i=1;
     if (actualTemp<desiredTemp) {
         while (actualTemp<desiredTemp){
             console.log(`Current Temperature: ${actualTemp}`)
             actualTemp++;
+            let temp = actualTemp;
+            i++;
             console.log("Run Heat");
             console.log(`Modified Temperature: ${actualTemp}, It's getting hot in here`)
-            setTimeout(document.getElementById("temp-readout").innerHTML =(`${actualTemp} C`), 1000)};
+            setTimeout( function(){
+                document.getElementById("temp-readout").innerHTML =(`${temp} C`)}, (i*1000))};
         }
     else if (actualTemp>desiredTemp) {
         while (actualTemp>desiredTemp){
             console.log(`Current Temperature: ${actualTemp}`)
             actualTemp--;
+            let temp = actualTemp;
+            i++;
             console.log("Run A/C");
             console.log(`Modified Temperature: ${actualTemp}, ICE ICE BABY`)
-            setTimeout(document.getElementById("temp-readout").innerHTML =(`${actualTemp} C`), 1000)};
+            setTimeout( function(){
+                document.getElementById("temp-readout").innerHTML =(`${temp} C`)}, (i*1000))};
         }
     else if (actualTemp===desiredTemp){
         console.log(`Take your finger off that dial son, it already ${actualTemp}!\nSTANDBY SOLDIER, that's an order!`);
@@ -94,6 +101,69 @@ function thermostatFunction() {
     }
     else {console.log("It's relatively comfy cozy in here now.")};
 }
+
+/*
+BJ Feedback:
+setTimeout( function() {
+    document.getElementById("temp-readout").innerHTML =(`${actualTemp} C`
+}, 1000)
+
+let i = 1;
+while (actualTemp<desiredTemp){
+    console.log(`Current Temperature: ${actualTemp}`)
+    actualTemp++;
+    i++;
+    console.log("Run Heat");
+    console.log(`Modified Temperature: ${actualTemp}, It's getting hot in here`);
+    
+    setTimeout( function() {
+        document.getElementById("temp-readout").innerHTML =(`${actualTemp} C`);
+    }, i * 1000)
+
+}
+
+this snippet above does delay the display, but, only for the last display
+
+    ```if (actualTemp<desiredTemp) {
+        let i = 0;
+        
+        while (actualTemp<desiredTemp){
+            console.log(`Current Temperature: ${actualTemp}`)
+            actualTemp++;
+            let temp = actualTemp;
+            i++;
+
+            console.log("Run Heat");
+            console.log(`Modified Temperature: ${actualTemp}, It's getting hot in here`);
+            
+            setTimeout( function() {
+                document.getElementById("temp-readout").innerHTML =(`${temp} C`);
+            }, i * 1000);
+
+        }
+    }```
+or
+    ```if (actualTemp<desiredTemp) {
+        let i = 0;
+        
+        while (actualTemp<desiredTemp){
+            console.log(`Current Temperature: ${actualTemp}`)
+            actualTemp++;
+            i++;
+
+            console.log("Run Heat");
+            console.log(`Modified Temperature: ${actualTemp}, It's getting hot in here`);
+            let tempValue = `${actualTemp} C`;
+
+            setTimeout( function() {
+                document.getElementById("temp-readout").innerHTML = tempValue;
+            }, i * 1000);
+
+        }
+    }```
+    this was because I was trying to redeclare my actualTemp variable inisded the loop while it was declared outside the loop
+    by making a more maleable local varaible "temp" I can change and display that variable
+*/
 
 /* Playing with timers
 
@@ -153,7 +223,13 @@ function temperatureConversion() {
     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
         let convertedTemp1 = (((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp1}°F`);
         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp1}°F`); break;
-// ran into a syntax error below here, apparently I can't redefine converted temp again and again?  will and number suffixes to fix
+
+/* 
+    ran into a syntax error below here, apparently I can't redefine converted temp again and again?  will and number suffixes to fix
+    another fix (thanks BJ) is to just declare "convertedTemp" before the switch statement, but leave it valueless so that I can assign values later,
+    e.g. let convertedTemp;
+ */
+
     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
         let convertedTemp2 = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp2}°K`);
         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp2}°K`); break;
@@ -183,6 +259,19 @@ function temperatureConversion() {
         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp6}°C`); break;
     }
 }
+/*
+BJ Notes on above Loop:
+
+I would suggest cleaning the switch statements up a little bit. Switch statements usually don't have their own conditionals in the `case` section, usually, you do the conditional in the `switch()` part.
+You can even do nested switch statements to make it even less code.
+
+If you do the conditional in the `case` part, you might as well be using a series of if statements.
+
+Derek DenHartigh [10:40 PM]
+so, switch(if(tempUnit===C)&&(targetUnit===F)){ all my celcius to F codestuffs};
+
+also declaring but not defining convertedTemp before the switch statements within the function. 
+*/
 /* example while loop
 let a=0, j=0;
 while (a<30) {
