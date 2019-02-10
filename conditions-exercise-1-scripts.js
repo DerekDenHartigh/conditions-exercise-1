@@ -270,6 +270,47 @@ If you do the conditional in the `case` part, you might as well be using a serie
 Derek DenHartigh [10:40 PM]
 so, switch(if(tempUnit===C)&&(targetUnit===F)){ all my celcius to F codestuffs};
 
+BJ:
+switch(tempUnit) {
+        case 'Celcius':
+        case 'C':
+            switch(targetUnit) {
+                case 'F':
+                case 'Fahrenheit':
+                // do converseion
+                break;
+
+                case 'C':
+                case 'Celcius':
+                // no need to convert
+                break;
+
+                case 'default':
+                // no comprende
+                break;
+            }
+        break;
+
+        case 'F':
+        case 'Fahrenheit':
+        switch(targetUnit) {
+            case 'F':
+            case 'Fahrenheit':
+            // no need to convert
+            break;
+
+            case 'C':
+            case 'Celcius':
+            // do converseion
+            break;
+
+            case 'default':
+            // no comprende
+            break;
+        }
+        break;
+    }
+
 also declaring but not defining convertedTemp before the switch statements within the function. 
 */
 /* example while loop
