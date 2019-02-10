@@ -132,6 +132,10 @@ function temperatureConversion() {
     // let the unit conversion switch begin!
     switch (unconvertedTemp, tempUnit, targetUnit) {
     
+    /*
+    I want to add something here if user inputs something unkosher above, like non number for unconverted temp, mispelled unit, or empty submission
+    */
+
     case unconvertedTemp===("" || undefined):
         console.log("you forgot to enter the temperature"); break;
 
