@@ -172,7 +172,8 @@ function myFunction() {
 }
 setInterval for repeating (and continuous I've found) setTimeout for one shot delay.  thinking settimeout is what I want to go for.
 wont count the temp down in HTML, console stuff happens pretty instantaneoulsy, which is fine, but I was really thinking the timeout at the
-end of the while statements would act as a sort of speed governor.
+end of the while statements would act as a sort of speed governor. - BJ told me that JS is asynchronous, meaning, that the loop wont wait for the 
+timeout to work, also I needed to put the timeout around a function and declare a new variable local to the loop.
 */
 // got this one to work, but the else statement that I was hoping would be my endpoint after the loop isn't running.
 //to do later: maybe drop a thermostat image, position a button on it or forms, and have scripts display currentTemp in DOM with a 1.5 sec delay in loops
@@ -194,71 +195,74 @@ C->K:   K=(C-273.15)
 K->C:   C=(K+273.15)
 K->F:   F=((9/5)*(K+273.15))+32)
 */
-function temperatureConversion() {
-    // define my variables with user data on button click to initiate function
-    let unconvertedTemp = prompt("what temperature is it? number only plz, the unit comes next.")
-    let tempUnit = prompt("what unit was that? (Kelvin/K, Celcius/C, Fahrenheit/F?)")
-    let targetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") // looked into multiple choice - looks like you need to use Jquery for that
-    // let the unit conversion switch begin!
-    switch (unconvertedTemp, tempUnit, targetUnit) {
+
+// Below lies my first draft:
+
+// function temperatureConversion() {
+//     // define my variables with user data on button click to initiate function
+//     let unconvertedTemp = prompt("what temperature is it? number only plz, the unit comes next.")
+//     let tempUnit = prompt("what unit was that? (Kelvin/K, Celcius/C, Fahrenheit/F?)")
+//     let targetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") // looked into multiple choice - looks like you need to use Jquery for that
+//     // let the unit conversion switch begin!
+//     switch (unconvertedTemp, tempUnit, targetUnit) {
     
-    /*
-    I want to add something here if user inputs something unkosher above, like non number for unconverted temp, mispelled unit, or empty submission
-    */
+//     /*
+//     I want to add something here if user inputs something unkosher above, like non number for unconverted temp, mispelled unit, or empty submission
+//     */
 
-    case unconvertedTemp===("" || undefined):
-        console.log("you forgot to enter the temperature"); break;
+//     case unconvertedTemp===("" || undefined):
+//         console.log("you forgot to enter the temperature"); break;
 
-    case (
-        ((tempUnit===("Celcius"||"celcius"||"C"||"c")) && (unconvertedTemp< (-273.15))) ||
-        ((tempUnit===("Kelvin"||"kelvin"||"K"||"k")) && (unconvertedTemp<0)) ||
-        ((tempUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (unconvertedTemp< (-459.67)))):
-        console.log(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); 
-        document.getElementById("converted-temp-readout").innerHTML =(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+//     case (
+//         ((tempUnit===("Celcius"||"celcius"||"C"||"c")) && (unconvertedTemp< (-273.15))) ||
+//         ((tempUnit===("Kelvin"||"kelvin"||"K"||"k")) && (unconvertedTemp<0)) ||
+//         ((tempUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (unconvertedTemp< (-459.67)))):
+//         console.log(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); 
+//         document.getElementById("converted-temp-readout").innerHTML =(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
 
-    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        console.log(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`);
-        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`); break;
+//     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+//         console.log(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`); break;
 
-    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
-        let convertedTemp1 = (((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp1}°F`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp1}°F`); break;
+//     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
+//         let convertedTemp1 = (((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp1}°F`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp1}°F`); break;
 
-/* 
-    ran into a syntax error below here, apparently I can't redefine converted temp again and again?  will and number suffixes to fix
-    another fix (thanks BJ) is to just declare "convertedTemp" before the switch statement, but leave it valueless so that I can assign values later,
-    e.g. let convertedTemp;
- */
+// /* 
+//     ran into a syntax error below here, apparently I can't redefine converted temp again and again?  will and number suffixes to fix
+//     another fix (thanks BJ) is to just declare "convertedTemp" before the switch statement, but leave it valueless so that I can assign values later,
+//     e.g. let convertedTemp;
+//  */
 
-    case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
-        let convertedTemp2 = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp2}°K`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp2}°K`); break;
+//     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+//         let convertedTemp2 = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp2}°K`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp2}°K`); break;
 
-    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
-        console.log(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`);
-        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`); break;
+//     case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+//         console.log(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`); break;
 
-    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
-        let convertedTemp3 = (((9/5)*(unconvertedTemp+273.15))+32); console.log(`converted temp: ${convertedTemp3}°F`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp3}°F`); break;
+//     case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
+//         let convertedTemp3 = (((9/5)*(unconvertedTemp+273.15))+32); console.log(`converted temp: ${convertedTemp3}°F`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp3}°F`); break;
 
-    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        let convertedTemp4 = (unconvertedTemp+273.15); console.log(`converted temp: ${convertedTemp4}°C`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp4}°C`); break;
+//     case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+//         let convertedTemp4 = (unconvertedTemp+273.15); console.log(`converted temp: ${convertedTemp4}°C`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp4}°C`); break;
 
-    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")):
-        console.log(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`);
-        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`); break;
+//     case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")):
+//         console.log(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`); break;
 
-    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
-        let convertedTemp5 = (((unconvertedTemp-32)*5/9)-273.15); console.log(`converted temp: ${convertedTemp5}°K`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp5}°K`); break;
+//     case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+//         let convertedTemp5 = (((unconvertedTemp-32)*5/9)-273.15); console.log(`converted temp: ${convertedTemp5}°K`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp5}°K`); break;
 
-    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        let convertedTemp6 = ((unconvertedTemp-32)*(5/9)); console.log(`converted temp: ${convertedTemp6}°C`);
-        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp6}°C`); break;
-    }
-}
+//     case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
+//         let convertedTemp6 = ((unconvertedTemp-32)*(5/9)); console.log(`converted temp: ${convertedTemp6}°C`);
+//         document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp6}°C`); break;
+//     }
+// }
 /*
 BJ Notes on above Loop:
 
@@ -313,21 +317,94 @@ switch(tempUnit) {
 
 also declaring but not defining convertedTemp before the switch statements within the function. 
 */
-/* example while loop
-let a=0, j=0;
-while (a<30) {
-    a++;
-    j+=a;
-    console.log(`a: ${a}`);
-    console.log(`j: ${j}`);
 
-do while:
-let userPass = undefined;
-do {
-    if (userPass===undefined) {console.log("Enter Password to continue")
-    userPass = prompt("Enter \"password\"")
-    {console.log("Access Granted")} 
+function temperatureConversion() {
+    let unconvertedTemp = prompt("what temperature is it? number only plz, the unit comes next.")
+    let inputTempUnit = prompt("what unit was that? (Kelvin/K, Celcius/C, Fahrenheit/F?)")
+        let tempUnit = inputTempUnit.toLowerCase()
+    let inputTargetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") 
+        let targetUnit = inputTargetUnit.toLowerCase()
+    let convertedTemp;  // doing this so the variable is declared but valueless so I can assign value in switches?
+    switch(unconvertedTemp, inputTempUnit, inputTargetUnit) {
+        case "":
+        case null:
+        case undefined:
+            document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
+    } // hopefully this switch will throw out an error message if a prompt is left blank
+    // switch(unconvertedTemp, tempUnit){
+    //     case ((tempUnit===("c" || "celcius")) && (unconvertedTemp<-273.15)):
+    //     case ((tempUnit===("k" || "kelvin")) && (unconvertedTemp<0)):
+    //     case ((tempUnit===("f" || "fahrenheit")) && (unconvertedTemp<-459.67)):
+    //         document.getElementById("converted-temp-readout").innerHTML =
+    //         (`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+    // }
+    //hoping this switch will let you know if your input temp is below absolute zero - who are you Mr. Freeze?
+    // wasn't working, added these arguments onto the end of the switches.
+    switch(tempUnit) {
+        case ("c"):
+        case ("celsius"):
+            switch(targetUnit){
+                case (unconvertedTemp<(-273.15)):
+                    document.getElementById("converted-temp-readout").innerHTML =
+                    (`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+                case "f":
+                case "fahrenheit":
+                    let convertedTemp1 = (((9/5)*unconvertedTemp)+32);
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp1}°F`); break;
+                case "k":
+                case "kelvin":
+                    let convertedTemp2 = (unconvertedTemp-273.15);
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp2}°K`); break;
+                case "c":
+                case "celcius":
+                    document.getElementById("converted-temp-readout").innerHTML =(`Really? You bothered me to convert from C to C?\nTemp: ${unconvertedTemp}°C`); break;
+                default: document.getElementById("converted-temp-readout").innerHTML = ("ERROR - BzzZZzzt!"); break;
+            }
+        case ("f"):
+        case ("fahrenheit"):
+            switch(targetUnit){
+                case (unconvertedTemp<(-459.67)):
+                    document.getElementById("converted-temp-readout").innerHTML =
+                    (`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+                case "f":
+                case "fahrenheit":
+                    document.getElementById("converted-temp-readout").innerHTML =(`Really? You bothered me to convert from F to F?\nTemp: ${unconvertedTemp}°F`); break;
+                case "k":
+                case "kelvin":
+                    let convertedTemp3 = (((unconvertedTemp-32)*5/9)-273.15);
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp3}°K`); break;
+                case "c":
+                case "celcius":
+                    let convertedTemp4 = ((unconvertedTemp-32)*(5/9));
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp4}°C`); break;
+                default: document.getElementById("converted-temp-readout").innerHTML = ("ERROR - BzzZZzzt!"); break;
+            }
+        case ("k"):
+        case ("kelvin"):
+            switch(targetUnit){
+                case (unconvertedTemp<0):
+                    document.getElementById("converted-temp-readout").innerHTML =
+                    (`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+                case "f":
+                case "fahrenheit":
+                    let convertedTemp5 = (((9/5)*(unconvertedTemp+273.15))+32);
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp5}°F`); break;
+                case "k":
+                case "kelvin":
+                    document.getElementById("converted-temp-readout").innerHTML =(`Really? You bothered me to convert from K to K?\nTemp: ${unconvertedTemp}°K`); break;
+                case "c":
+                case "celcius":
+                    let convertedTemp6 = (unconvertedTemp-273.15);
+                    document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp6}°C`); break;
+                default: document.getElementById("converted-temp-readout").innerHTML = ("ERROR - BzzZZzzt!"); break;
+            }
+    } // a switch of switches to convert from one temp unit to another.
+      //tried using converted temp throughout, but I got errors thrown back, adding number suffixes
 }
-while (userPass !== "password");
-*/
 
+/*
+Bug Report:
+    sub absolute zero isn't prompting the error - adding that as default of switch
+    fahrenheit conversions aren't working correctly
+
+*/
