@@ -128,36 +128,59 @@ K->C:   C=(K+273.15)
 K->F:   F=((9/5)*(K+273.15))+32)
 */
 function temperatureConversion() {
-switch () {
+switch (unconvertedTemp, tempUnit, targetUnit) {
+
     case unconvertedTemp===("" || undefined):
         console.log("you forgot to enter the temperature"); break;
+
     case (
         ((tempUnit===("Celcius"||"celcius"||"C"||"c")) && (unconvertedTemp< (-273.15))) ||
         ((tempUnit===("Kelvin"||"kelvin"||"K"||"k")) && (unconvertedTemp<0)) ||
         ((tempUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (unconvertedTemp< (-459.67)))):
-        console.log(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
+        console.log(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); 
+        document.getElementById("converted-temp-readout").innerHTML =(`THATS IMPOSSIBLE! ${unconvertedTemp}${tempUnit} is below absolute zero, the coldest possible temperature!`); break;
 
     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        console.log(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`); break;
+        console.log(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`);
+        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from C to C? temp: ${unconvertedTemp}°C`); break;
 
     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
-        let convertedTemp = ((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp}°F`); break;
+        let convertedTemp = ((9/5)*unconvertedTemp)+32); console.log(`converted temp: ${convertedTemp}°F`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°F`); break;
+
 
     case (tempUnit ===("Celcius"||"celcius"||"C"||"c")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
-        let convertedTemp = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp}°K`); break;
+        let convertedTemp = (unconvertedTemp-273.15); console.log(`converted temp: ${convertedTemp}°K`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°K`); break;
+
+
+    case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
+        console.log(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`);
+        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from K to K? temp: ${unconvertedTemp}°K`); break;
+
 
     case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"C"||"c")):
-        let convertedTemp = ((9/5)*(unconvertedTemp+273.15))+32); console.log(`converted temp: ${convertedTemp}°F`); break;
+        let convertedTemp = ((9/5)*(unconvertedTemp+273.15))+32); console.log(`converted temp: ${convertedTemp}°F`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°F`); break;
+
 
     case (tempUnit ===("Kelvin"||"kelvin"||"K"||"k")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        let convertedTemp = (unconvertedTemp+273.15); console.log(`converted temp: ${convertedTemp}°C`); break;
+        let convertedTemp = (unconvertedTemp+273.15); console.log(`converted temp: ${convertedTemp}°C`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°C`); break;
+
+
+    case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Fahrenheit"||"fahrenheit"||"F"||"f")):
+        console.log(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`);
+        document.getElementById("converted-temp-readout").innerHTML =(`really? you bothered me to convert from F to F? temp: ${unconvertedTemp}°F`); break;
 
     case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Kelvin"||"kelvin"||"K"||"k")):
-        let convertedTemp = (((unconvertedTemp-32)*5/9)-273.15); console.log(`converted temp: ${convertedTemp}°K`); break;
-        
+        let convertedTemp = (((unconvertedTemp-32)*5/9)-273.15); console.log(`converted temp: ${convertedTemp}°K`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°K`); break;
+
     case (tempUnit ===("Fahrenheit"||"fahrenheit"||"F"||"f")) && (targetUnit===("Celcius"||"celcius"||"C"||"c")):
-        let convertedTemp = ((unconvertedTemp-32)*(5/9)); console.log(`converted temp: ${convertedTemp}°C`); break;
-  }
+        let convertedTemp = ((unconvertedTemp-32)*(5/9)); console.log(`converted temp: ${convertedTemp}°C`);
+        document.getElementById("converted-temp-readout").innerHTML =(`converted temp: ${convertedTemp}°C`); break;
+    }
 }
 /* example while loop
 let a=0, j=0;

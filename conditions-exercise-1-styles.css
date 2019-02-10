@@ -1,3 +1,6 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
 #thermostat-container{
     position: relative;
 }
@@ -24,4 +27,31 @@
 }
 #thermostat-jpg{
     position: absolute;
+}
+#unit-conversion-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    justify-self: center;
+    align-self: center;
+    background-color: paleturquoise;
+    border-radius: 5px;
+    padding: 30px;
+}
+#unit-conversion-button{
+    background-color: plum;
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+    font-size: 1.5em;
+    color: purple;
+}
+#converted-temp-readout{
+    font-size: 1.5em;
+    background-color: lightgreen;
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+    color: purple;
 }
