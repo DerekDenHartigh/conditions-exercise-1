@@ -101,6 +101,10 @@ function thermostatFunction() {
     }
     else {console.log("It's relatively comfy cozy in here now.")};
 }
+/*
+Bug report:
+    weirdness @ 1000+ start point
+*/
 
 /*
 BJ Feedback:
@@ -321,9 +325,9 @@ also declaring but not defining convertedTemp before the switch statements withi
 function temperatureConversion() {
     let unconvertedTemp = prompt("what temperature is it? number only plz, the unit comes next.")
     let inputTempUnit = prompt("what unit was that? (Kelvin/K, Celcius/C, Fahrenheit/F?)")
-        let tempUnit = inputTempUnit.toLowerCase()
+        let tempUnit = inputTempUnit.toLowerCase()  // this might be throwing a wrench for the null/undefined, can't get lower case of those
     let inputTargetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") 
-        let targetUnit = inputTargetUnit.toLowerCase()
+        let targetUnit = inputTargetUnit.toLowerCase()  // this might be throwing a wrench for the null/undefined, can't get lower case of those
     let convertedTemp;  // doing this so the variable is declared but valueless so I can assign value in switches?
     switch(inputTargetUnit) {
         case "":
