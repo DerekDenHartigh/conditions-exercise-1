@@ -334,11 +334,13 @@ function temperatureConversion() {
         case null:
         case undefined:
             document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
+    }
     switch(unconvertedTemp) {
         case "":
         case null:
         case undefined:
             document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
+    }
     switch(inputTempUnit) {
         case "":
         case null:
@@ -422,5 +424,4 @@ function temperatureConversion() {
 Bug Report:
     sub absolute zero isn't prompting the error - adding that as default of switch
     fahrenheit conversions aren't working correctly
-
 */
