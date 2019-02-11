@@ -325,12 +325,23 @@ function temperatureConversion() {
     let inputTargetUnit = prompt("What unit of average kinetic motion do you desire? (Kelvin/K, Celcius/C, Farenheit/F?)") 
         let targetUnit = inputTargetUnit.toLowerCase()
     let convertedTemp;  // doing this so the variable is declared but valueless so I can assign value in switches?
-    switch(unconvertedTemp, inputTempUnit, inputTargetUnit) {
+    switch(inputTargetUnit) {
         case "":
         case null:
         case undefined:
             document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
-    } // hopefully this switch will throw out an error message if a prompt is left blank
+    switch(unconvertedTemp) {
+        case "":
+        case null:
+        case undefined:
+            document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
+    switch(inputTempUnit) {
+        case "":
+        case null:
+        case undefined:
+            document.getElementById("converted-temp-readout").innerHTML = (`ERROR, ERROR, ABORT, ABORT - Try Again`)
+    } // hopefully these switches will throw out an error message if a prompt is left blank
+
     // switch(unconvertedTemp, tempUnit){
     //     case ((tempUnit===("c" || "celcius")) && (unconvertedTemp<-273.15)):
     //     case ((tempUnit===("k" || "kelvin")) && (unconvertedTemp<0)):
@@ -340,6 +351,7 @@ function temperatureConversion() {
     // }
     //hoping this switch will let you know if your input temp is below absolute zero - who are you Mr. Freeze?
     // wasn't working, added these arguments onto the end of the switches.
+
     switch(tempUnit) {
         case ("c"):
         case ("celsius"):
